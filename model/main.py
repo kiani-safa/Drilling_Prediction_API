@@ -3,9 +3,9 @@ from pydantic import BaseModel
 import joblib
 import numpy as np
 
-# 1) load the saved model
+# 1) load the saved model and scaler
 model=joblib.load("rop_random_forest.pkl")
-
+scaler=joblib.load("scaler.pkl")
 # 2) Create FastAPI app
 app=FastAPI(
     title="ROP Prediction API",
@@ -66,7 +66,10 @@ def predict(data:ROPInput):
         data.gamma_at_bit
     ]])
 
-    prediction=model.predict(features)
+    # scalling
+    features_scaled=scaler.transform(features)
+
+    prediction=model.predict(features_scaled)
 
     return {
         "inputs":data.model_dump(),
