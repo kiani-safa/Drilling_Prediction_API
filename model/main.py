@@ -4,8 +4,8 @@ import joblib
 import numpy as np
 
 # 1) load the saved model and scaler
-model=joblib.load("rop_random_forest.pkl")
-scaler=joblib.load("scaler.pkl")
+model=joblib.load("../model/rop_random_forest.pkl")
+scaler=joblib.load("../model/scaler.pkl")
 # 2) Create FastAPI app
 app=FastAPI(
     title="ROP Prediction API",
